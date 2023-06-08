@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Giffi</string>
+    <string name="trending">Trending</string>
+    <string name="favorites">Favorites</string>
+</resources>
