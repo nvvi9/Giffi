@@ -56,6 +56,7 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.compose)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -66,6 +67,7 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.navigation.compose)
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)

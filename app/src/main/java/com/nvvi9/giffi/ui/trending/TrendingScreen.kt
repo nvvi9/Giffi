@@ -7,16 +7,24 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nvvi9.giffi.ui.core.GifsListUiState
 import com.nvvi9.giffi.ui.core.gifsList
-import com.nvvi9.giffi.vo.UserGifResource
 
 @Composable
-fun TrendingRoute(onItemClicked: () -> Unit, modifier: Modifier = Modifier) {
+fun TrendingRoute(
+    onItemClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: TrendingViewModel = hiltViewModel()
+) {
+    val gifsListUiState by viewModel.gifListUiState.collectAsStateWithLifecycle()
+
     TrendingScreen(
-        gifsListUiState = GifsListUiState.Success(UserGifResource.sample),
+        gifsListUiState = gifsListUiState,
         onItemClicked = onItemClicked,
         modifier = modifier
     )
