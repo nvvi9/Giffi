@@ -52,14 +52,6 @@ fun GifResourceCardExpanded(
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 loading = { CircularProgressIndicator() },
-//                imageLoader = ImageLoader.Builder(LocalContext.current)
-//                    .components {
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//                            add(ImageDecoderDecoder.Factory())
-//                        } else {
-//                            add(GifDecoder.Factory())
-//                        }
-//                    }.build(),
             )
             Column(modifier = Modifier.padding(16.dp)) {
                 Spacer(modifier = Modifier.height(12.dp))

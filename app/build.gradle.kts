@@ -1,8 +1,12 @@
+import com.android.build.api.dsl.ApplicationDefaultConfig
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinxSerialization)
     kotlin("kapt")
 }
 
@@ -12,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nvvi9.giffi"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -21,6 +25,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("giphy.token", "GIPHY_TOKEN")
     }
 
     buildTypes {
@@ -40,6 +46,7 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -72,6 +79,11 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
     implementation(libs.coil.gif)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.negotiation)
+    implementation(libs.ktor.client.serialization.json)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -79,4 +91,10 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+}
+
+fun ApplicationDefaultConfig.buildConfigField(propertyName: String, buildConfigFieldName: String) {
+    val property = gradleLocalProperties(rootDir).getProperty(propertyName)
+    checkNotNull(property) { "Gradle property $propertyName is null" }
+    buildConfigField("String", buildConfigFieldName, property)
 }

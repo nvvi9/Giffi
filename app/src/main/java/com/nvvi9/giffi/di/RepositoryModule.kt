@@ -1,0 +1,16 @@
+package com.nvvi9.giffi.di
+
+import com.nvvi9.giffi.repositories.GifsRepository
+import com.nvvi9.giffi.repositories.GifsRepositoryImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface RepositoryModule {
+
+    @Binds
+    fun binds(gifsRepositoryImpl: GifsRepositoryImpl): GifsRepository
+}

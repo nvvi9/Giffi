@@ -1,5 +1,6 @@
 package com.nvvi9.giffi.vo
 
+import com.nvvi9.giffi.network.model.TrendingResponse
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
@@ -20,4 +21,13 @@ data class UserGifResource(
                 )
             }
     }
+}
+
+fun TrendingResponse.toUserGifResourceList() = data.map { data ->
+    UserGifResource(
+        id = data.id,
+        title = data.title,
+        gifUrl = data.images.downsized.url,
+        publishDate = data.importDatetime
+    )
 }
