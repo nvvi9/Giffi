@@ -11,10 +11,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.http.ContentType
@@ -38,7 +41,14 @@ object NetworkModule {
                 explicitNulls = false
             })
         }
-        install(Logging)
+        install(Logging) {
+            Napier.base(DebugAntilog())
+            logger = object : Logger {
+                override fun log(message: String) {
+                    Napier.v(message)
+                }
+            }
+        }
         install(DefaultRequest) {
             url("https://api.giphy.com/v1/")
             url {
