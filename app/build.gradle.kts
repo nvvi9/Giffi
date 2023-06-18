@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.ksp)
     kotlin("kapt")
 }
 
@@ -24,6 +25,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 
         buildConfigField("giphy.token", "GIPHY_TOKEN")
@@ -85,6 +90,10 @@ dependencies {
     implementation(libs.ktor.client.negotiation)
     implementation(libs.ktor.client.serialization.json)
     implementation(libs.napier)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

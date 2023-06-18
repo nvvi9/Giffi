@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TrendingResponse(
-    val `data`: List<Data>,
+    val data: List<Data>,
     val pagination: Pagination,
     val meta: Meta
 ) {
